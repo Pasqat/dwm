@@ -8,44 +8,56 @@ static const unsigned int systraypinning = 2;   /* 0: sloppy systray follows sel
 static const unsigned int systrayspacing = 8;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;     /* 0 means no systray */
-static const unsigned int gappih    = 23;       /* horiz inner gap between windows */
-static const unsigned int gappiv    = 23;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 23;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 23;       /* vert outer gap between windows and screen edge */
+static const unsigned int gappih    = 15;       /* horiz inner gap between windows */
+static const unsigned int gappiv    = 15;       /* vert inner gap between windows */
+static const unsigned int gappoh    = 15;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 15;       /* vert outer gap between windows and screen edge */
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Source Code Pro Regular:size=13", "JoyPixels:pixelsize=14:antialias=true:autohint=true" };
+static const char *fonts[]          = { "Source Code Pro Regular:size=13", "JetBrainsMono Nerd Font:style:regular:pixelsize=15" };
 static const char *upvol[]          = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",     NULL };
 static const char *downvol[]        = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",     NULL };
+static const char dmenufont[]       = "monospace:size=10";
 static const char *mutevol[]        = { "/usr/bin/pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle",  NULL };
-static const char col_gray1[]       = "#282828";
-static const char col_gray2[]       = "#333333";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#fefefe";
-static const char col_cyan[]        = "#005577";
-static const char col_purple[]      = "#5a5aa4";
-static const char col_red[]         = "#d54646";
-static const char col_green[]       = "#23d18b";
-static const char col_yellow[]      = "#d7ba7d";
-static const char col_blue[]        = "#81a1c1";
+static const char col_gray1[]       = "#24283b";
+static const char col_gray2[]       = "#1f2335";
+static const char col_gray3[]       = "#c0caf5";
+static const char col_white[]	      = "#FFFFFF";
+static const char col_black[]	      = "#000000";
+static const char col_purple[]      = "#BD93F9";
+static const char col_green[]       = "#50FA7B";
+static const char col_yellow[]	    = "#F1FA8C";
+static const char col_magenta[]     = "#FF79C6";
+static const char col_bg_d[]        = "#282A36";
+static const char col_bg_c[]        = "#1C1C1C";
+static const char col_fg_w[]        = "#F8F8F2";
+static const char col_fg_y[]        = "#F9CE74";
+static const char col_fg_o[]        = "#EA7217";
+static const char col_gray4[]       = "#eeeeee";
+static const char col_cyan[]        = "#8BE9FD";
 static const char col_info_blue[]   = "#4fc1ff";
-static const char col_magenta[]     = "#c586c0";
-static const char col_white[]       = "#abb2bf";
-static const char col_bg_alt[]      = "#212121";
+static const char col_bg_alt[]      = "#292e42";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray4, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_blue,  col_blue  },
+	[SchemeNorm] = { col_fg_w, col_bg_c,     col_bg_c },
+	[SchemeSel]  = { col_bg_c, col_fg_y,     col_bg_c  },
 	[SchemeStatus]  = { col_gray4, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
 
 	[SchemeTagsSel]  = { col_info_blue, col_gray1,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-    [SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+  [SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
 
-    [SchemeInfoSel]  = { col_gray3, col_bg_alt,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-    [SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+  [SchemeInfoSel]  = { col_gray3, col_bg_alt,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+  [SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
+/* static const unsigned int baralpha = 0xcc; */
+/* static const unsigned int borderalpha = OPAQUE; */
+/* static const unsigned int alphas[][3]      = { */
+/*               fg      bg        border     */ 
+/* 	[SchemeNorm] = { OPAQUE, baralpha, borderalpha }, */
+/* 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha }, */
+/* }; */
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -63,7 +75,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            0,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Firefox",  NULL,       NULL,       2 << 9,       0,           -1 },
 };
 
 /* layout(s) */
@@ -77,14 +89,14 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 /* #include "./patches/fibonacci.c" */
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-    { "[\\]",     dwindle },
-	{ "[M]",      monocle },
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+  { "",      tile },    /* first entry is default */
+	{ "",      monocle },
+	{ "",      NULL },    /* no layout function means floating behavior */
+  { "[\\]",     dwindle },
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
 	{ NULL,       NULL },
-    /* { "H[]",      deck },*/
+  /* { "H[]",      deck },*/
 	/* { "TTT",      bstack }, */
  	/* { "[@]",      spiral }, */
 };
@@ -101,77 +113,81 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[]  = { "st", NULL };
+static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *termcmd[]  = { "kitty", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg_c, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
+static const char *brbrowser[]  = { "brave-browser", NULL };
+static const char *monitor[]    = { "kitty", "gotop", NULL };
+static const char *file[]       = { "kitty", "ranger", NULL };
+static const char *rofi[]       = { "rofi", "-modi", "run,drun,window", "-show", "drun", NULL};
+static const char *emojy[]      = {"splatmoji", "copy", NULL};
 
 #include <X11/XF86keysym.h>
 #include "./patches/shiftview.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,			            XK_b,      spawn,		   SHCMD("feh --bg-fill --randomize ~/Pictures/wallpapers/* &") },
-	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
-	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_space,  spawn,          SHCMD("dmenu_run") },
-	{ MODKEY|ShiftMask,             XK_space,      setlayout,      {0} }, 
-	{ MODKEY,			            XK_w,      spawn,		   SHCMD("$BROWSER") },
-	{ MODKEY,			            XK_r,      spawn,		   SHCMD("$TERMINAL -e ranger") },
-	{ MODKEY,			            XK_y,      spawn,		   SHCMD("flameshot gui -p ~/Pictures/screenshots") },
-	{ MODKEY|ShiftMask,			    XK_y,      spawn,		   SHCMD("flameshot full -p ~/Pictures/screenshots") },
-	{ MODKEY|ShiftMask,			    XK_v,      spawn,		   SHCMD("mpv --profile=low-latency /dev/video0") },
-	{ MODKEY,                       XK_semicolon,      spawn,  SHCMD("skippy-xd") },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY,                       XK_n,      shiftview,      {.i = +1 } },
-	{ MODKEY,                       XK_p,      shiftview,      {.i = -1 } },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // tile
-	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[1]} }, // tile
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} }, // float
-	/* { MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[3]} }, // float */
-	{ MODKEY|ShiftMask,             XK_f,      togglefloating, {0} },
-	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[4]} }, // monocle
-    { MODKEY|ShiftMask,             XK_c,      setlayout,      {.v = &layouts[5]} }, // dwindle
-	{ MODKEY,                       XK_g,      togglegaps,     {0} },
-	{ MODKEY|ShiftMask,             XK_g,      defaultgaps,    {0} },
-	{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
-	{ 0,                            XF86XK_AudioMute, spawn, {.v = mutevol } },
-	{ 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
-	{ MODKEY|ControlMask,		    XK_comma,  cyclelayout,    {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-    { MODKEY,                       XK_minus,  focusmon,       {.i = -1 } },
-    { MODKEY,                       XK_equal,   focusmon,       {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_minus,  tagmon,         {.i = -1 } },
-    { MODKEY|ShiftMask,             XK_equal,   tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY,                       XK_F2,      spawn,  SHCMD("screenkey -s small --scr 2 -p fixed -g 400x100+2150+1330 --opacity .6 --font-color white") },
-	{ MODKEY,                       XK_F3,      spawn,  SHCMD("killall screenkey") },
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	/* { MODKEY,                       XK_0,      view,           {.ui = ~0 } }, */
-	/* { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } }, */
+	{ MODKEY,                 XK_Return,               spawn,          {.v = termcmd } },
+	{ MODKEY,			            XK_b,                    spawn,		   SHCMD("feh --bg-fill --randomize ~/.wallpapers/* &") },
+	{ MODKEY|ShiftMask,       XK_b,                    togglebar,      {0} },
+	{ MODKEY|ShiftMask,       XK_j,                    rotatestack,    {.i = +1 } },
+	{ MODKEY|ShiftMask,       XK_k,                    rotatestack,    {.i = -1 } },
+	{ MODKEY,                 XK_j,                    focusstack,     {.i = +1 } },
+	{ MODKEY,                 XK_k,                    focusstack,     {.i = -1 } },
+	{ MODKEY,                 XK_i,                    incnmaster,     {.i = +1 } },
+	{ MODKEY,                 XK_d,                    incnmaster,     {.i = -1 } },
+	{ MODKEY,                 XK_h,                    setmfact,       {.f = -0.05} },
+	{ MODKEY,                 XK_l,                    setmfact,       {.f = +0.05} },
+	{ MODKEY|ShiftMask,       XK_Return,               zoom,           {0} },
+	{ MODKEY,                 XK_q,                    killclient,     {0} },
+	{ MODKEY,                 XK_space,                spawn,          {.v = dmenucmd } },
+	/* { MODKEY|ShiftMask,    XK_space,                     setlayout,      {0} },  */
+	{ MODKEY,			            XK_w,                    spawn,		       {.v = brbrowser} },
+	{ MODKEY,			            XK_o,                    spawn,		       {.v = emojy} },
+	{ MODKEY,			            XK_r,                    spawn,		       {.v = monitor } },
+	{ MODKEY,			            XK_y,                    spawn,		       SHCMD("flameshot gui -p ~/Pictures/screenshots") },
+	{ MODKEY|ShiftMask,			  XK_y,                    spawn,		       SHCMD("flameshot full -p ~/Pictures/screenshots") },
+	{ MODKEY|ShiftMask,			  XK_v,                    spawn,		       {.v = rofi }},
+	{ MODKEY,                 XK_semicolon,            spawn,          SHCMD("skippy-xd") },
+	{ MODKEY,                 XK_comma,                focusmon,       {.i = -1 } },
+	{ MODKEY,                 XK_period,               focusmon,       {.i = +1 } },
+	{ MODKEY,                 XK_n,                    shiftview,      {.i = +1 } },
+	{ MODKEY,                 XK_p,                    shiftview,      {.i = -1 } },
+	{ MODKEY,                 XK_t,                    setlayout,      {.v = &layouts[0]} }, // tile
+	{ MODKEY|ShiftMask,       XK_t,                    setlayout,      {.v = &layouts[1]} }, // monocle
+	{ MODKEY,                 XK_f,                    setlayout,      {.v = &layouts[2]} }, // float
+	{ MODKEY|ShiftMask,       XK_f,                    setlayout,      {.v = &layouts[3]} }, // dwindle
+	{ MODKEY|ShiftMask,       XK_space,                togglefloating, {0} },
+	{ MODKEY,                 XK_c,                    setlayout,      {.v = &layouts[4]} }, // centeredMaster
+  { MODKEY|ShiftMask,       XK_c,                    setlayout,      {.v = &layouts[5]} }, // centeredFloatingMaster
+	{ MODKEY,                 XK_g,                    togglegaps,     {0} },
+	{ MODKEY|ShiftMask,       XK_g,                    defaultgaps,    {0} },
+	{ 0,                      XF86XK_AudioLowerVolume, spawn,          {.v = downvol } },
+	{ 0,                      XF86XK_AudioMute,        spawn,          {.v = mutevol } },
+	{ 0,                      XF86XK_AudioRaiseVolume, spawn,          {.v = upvol   } },
+	{ MODKEY|ControlMask,		  XK_comma,                cyclelayout,    {.i = -1 } },
+	{ MODKEY|ControlMask,     XK_period,               cyclelayout,    {.i = +1 } },
+	{ MODKEY|ShiftMask,       XK_comma,                tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,       XK_period,               tagmon,         {.i = +1 } },
+  { MODKEY,                 XK_exclam,                focusmon,       {.i = -1 } },
+  { MODKEY,                 XK_bar,                focusmon,       {.i = +1 } },
+  { MODKEY|ShiftMask,       XK_exclam,                tagmon,         {.i = -1 } },
+  { MODKEY|ShiftMask,       XK_bar,                tagmon,         {.i = +1 } },
+	TAGKEYS(                  XK_plus,                      0)
+	TAGKEYS(                  XK_bracketleft,                      1)
+	TAGKEYS(                  XK_braceleft,                      2)
+	TAGKEYS(                  XK_parenleft,                      3)
+	TAGKEYS(                  XK_ampersand,                      4)
+	TAGKEYS(                  XK_equal,                      5)
+	TAGKEYS(                  XK_asterisk,                      6)
+	TAGKEYS(                  XK_parenright,                      7)
+	TAGKEYS(                  XK_braceright,                      8)
+	{ MODKEY|ShiftMask,       XK_q,                    quit,           {0} },
+	/* { MODKEY,                 XK_F2,                   spawn,          SHCMD("screenkey -s small --scr 2 -p fixed -g 400x100+2150+1330 --opacity .6 --font-color white") }, */
+	/* { MODKEY,                 XK_F3,                   spawn,          SHCMD("killall screenkey") }, */
+	/* { MODKEY,              XK_0,                    view,           {.ui = ~0 } }, */
+	/* { MODKEY|ShiftMask,    XK_0,                    tag,            {.ui = ~0 } }, */
 };
 
-
-/* bindsym $mod+F1		        restart */
-/* bindsym $mod+F2		        exec --no-startup-id screenkey -s small --scr 1 -p fixed -g 600x100+2573+1330 --opacity .9 --font-color white */
-/* bindsym $mod+F3	          exec --no-startup-id killall screenkey */
 /* bindsym $mod+F12	        exec $term -e nmtui */
 
 /* button definitions */
